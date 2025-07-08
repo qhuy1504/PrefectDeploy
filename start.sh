@@ -1,12 +1,17 @@
 #!/bin/bash
 
 echo "== STARTING PREFECT ORION SERVER =="
-# Chạy Prefect Orion ở nền
 prefect orion start --host 0.0.0.0 --port 4200 &
+ORION_PID=$!
 
-# Đợi server khởi động xong (đảm bảo API sẵn sàng)
-sleep 20
+sleep 10  # Chờ server khởi động xong
+
+echo "== CREATING WORK POOL IF NOT EXISTS =="
+prefect work-pool inspect local-process-pool || \
+prefect work-pool create local-process-pool --type process
 
 echo "== STARTING PREFECT WORKER =="
-# Chạy worker kết nối tới server vừa khởi động
-prefect worker start --pool local-process-pool --type process
+prefect worker start --pool local-process-pool --type process &
+
+# Giữ container sống
+wait $ORION_PID
