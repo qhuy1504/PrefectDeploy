@@ -12,7 +12,8 @@ import json
 from typing import List, Optional
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(dotenv_path=".env")
+# Define a TypedDict for task information
 
 class TaskDict(TypedDict):
     name: str
