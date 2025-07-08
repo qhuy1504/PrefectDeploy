@@ -28,7 +28,7 @@ ENV PREFECT_API_URL=${PREFECT_API_URL}
 ENV DATABASE_URL=${DATABASE_URL}
 
 # Expose port cho Prefect UI
-EXPOSE 4200
+# EXPOSE 4200
 
 # Khởi chạy supervisor (chạy đồng thời prefect server, worker, flow)
 CMD ["/usr/bin/supervisord"]
