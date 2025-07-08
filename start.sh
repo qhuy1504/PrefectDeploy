@@ -12,7 +12,7 @@ sleep 60
 
 echo "== STARTING PREFECT WORKER =="
 # Đặt biến môi trường trỏ về server nội bộ
-export PREFECT_API_URL=http://127.0.0.1:4200/api
+export PREFECT_API_URL=prefect-production-c7b6.up.railway.app/api
 
 # Bắt đầu worker
 prefect worker start --pool local-process-pool --type process
