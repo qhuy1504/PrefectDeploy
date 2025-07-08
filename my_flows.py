@@ -20,6 +20,7 @@ class TaskDict(TypedDict):
     script_content: str
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+print(f"Using DATABASE_URL: {DATABASE_URL}")
 if not DATABASE_URL:
     raise EnvironmentError("Missing DATABASE_URL in environment or .env file")
 
@@ -186,6 +187,7 @@ def multi_task_job_flow(jobId: int):
 
 if __name__ == "__main__":
     prefect_url = os.getenv("PREFECT_API_URL")
+    print(f"Using Prefect API URL: {prefect_url}")
     if not prefect_url:
         raise EnvironmentError("Missing PREFECT_API_URL in environment or .env file")
 
