@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "== STARTING PREFECT ORION SERVER =="
-prefect orion start --host 0.0.0.0 --port 4200 &
+pprefect server start --host 0.0.0.0 --port 4200 &
 ORION_PID=$!
 
 sleep 30  # Chờ server khởi động xong
