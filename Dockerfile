@@ -20,6 +20,8 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # Copy file .env (nếu có)
 COPY .env .env
 
+RUN echo "==== DONE SETUP ===="
+
 # Set environment variables từ file .env (prefect sẽ đọc biến ENV tại runtime)
 ENV PREFECT_API_DATABASE_CONNECTION_URL=${PREFECT_API_DATABASE_CONNECTION_URL}
 ENV PREFECT_API_URL=${PREFECT_API_URL}
