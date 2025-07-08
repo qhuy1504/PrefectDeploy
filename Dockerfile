@@ -23,12 +23,12 @@ COPY .env .env
 RUN echo "==== DONE SETUP ===="
 
 # Set environment variables từ file .env (prefect sẽ đọc biến ENV tại runtime)
-ENV PREFECT_API_DATABASE_CONNECTION_URL=${PREFECT_API_DATABASE_CONNECTION_URL}
+ENV PREFECT_API_KEY=${PREFECT_API_KEY}
 ENV PREFECT_API_URL=${PREFECT_API_URL}
 ENV DATABASE_URL=${DATABASE_URL}
 
 # Expose port cho Prefect UI
-# EXPOSE 4200
+EXPOSE 4200
 
 # Khởi chạy supervisor (chạy đồng thời prefect server, worker, flow)
 CMD ["/usr/bin/supervisord"]
