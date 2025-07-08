@@ -15,7 +15,7 @@ class TaskDict(TypedDict):
     script_type: str
     script_content: str
 
-DATABASE_URL = "postgresql://postgres:gRkWEparPPhyoBSwqZCBvFQRTEPYSILc@maglev.proxy.rlwy.net:25007/railway"
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 @task(name="Execute Single Script", retries=2, retry_delay_seconds=10)
@@ -180,10 +180,7 @@ def multi_task_job_flow(jobId: int):
 
 if __name__ == "__main__":
     import os
-    os.environ.setdefault(
-        "PREFECT_API_URL",
-        "http://127.0.0.1:4200/api"     
-    )
+    os.environ.setdefault("PREFECT_API_URL", os.getenv("PREFECT_API_URL"))
 
     multi_task_job_flow.serve(
         name="entrypoint_dynamic_job",   
