@@ -1,3 +1,4 @@
+import os
 import time
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -9,6 +10,9 @@ from datetime import datetime
 from prefect.states import State
 import json
 from typing import List, Optional
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class TaskDict(TypedDict):
     name: str
@@ -16,6 +20,8 @@ class TaskDict(TypedDict):
     script_content: str
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise EnvironmentError("Missing DATABASE_URL in environment or .env file")
 
 
 @task(name="Execute Single Script", retries=2, retry_delay_seconds=10)
@@ -179,8 +185,11 @@ def multi_task_job_flow(jobId: int):
 
 
 if __name__ == "__main__":
-    import os
-    os.environ.setdefault("PREFECT_API_URL", os.getenv("PREFECT_API_URL"))
+    prefect_url = os.getenv("PREFECT_API_URL")
+    if not prefect_url:
+        raise EnvironmentError("Missing PREFECT_API_URL in environment or .env file")
+
+    os.environ.setdefault("PREFECT_API_URL", prefect_url)
 
     multi_task_job_flow.serve(
         name="entrypoint_dynamic_job",   
