@@ -1,8 +1,15 @@
 #!/bin/bash
 
-echo "== SETTING API URL ENV =="
-export PREFECT_API_URL=https://prefectdeploy-production.up.railway.app/api
-export PREFECT_UI_URL=https://prefectdeploy-production.up.railway.app
+source .env
+
+echo "== PREFECT UI/ API =="
+echo "PREFECT_API_URL=$PREFECT_API_URL"
+echo "PREFECT_UI_URL=$PREFECT_UI_URL"
+
+# Ép Prefect biết đúng URL public
+export PREFECT_API_URL=$PREFECT_API_URL
+export PREFECT_UI_URL=$PREFECT_UI_URL
+
 
 echo "== STARTING PREFECT SERVER =="
 # Khởi chạy prefect server
