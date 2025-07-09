@@ -1,6 +1,14 @@
 #!/bin/bash
 
-source .env
+set -e
+
+# Load biến môi trường
+if [ -f .env ]; then
+  export $(cat .env | xargs)
+else
+  echo ".env file not found"
+  exit 1
+fi
 
 echo "== PREFECT UI/ API =="
 echo "PREFECT_API_URL=$PREFECT_API_URL"
@@ -14,7 +22,7 @@ echo "== STARTING PREFECT SERVER =="
 prefect server start --host 0.0.0.0 --port 4200 &
 
 SERVER_PID=$!
-sleep 30
+sleep 40
 
 
 echo "== CREATE WORK POOL (if not exists) =="
