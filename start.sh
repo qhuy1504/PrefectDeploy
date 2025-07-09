@@ -1,21 +1,16 @@
 #!/bin/bash
 
+echo "== SETTING API URL ENV =="
+export PREFECT_API_URL=https://prefect-production-c7b6.up.railway.app/api
+export PREFECT_UI_URL=https://prefect-production-c7b6.up.railway.app
+
 echo "== STARTING PREFECT SERVER =="
-# Chạy Prefect server ở nền
-prefect server start --host 0.0.0.0 --port 4200 &
+prefect server start --host 0.0.0.0 --port 4200 --ui-url $PREFECT_UI_URL &
 
-# Lấy PID để theo dõi nếu cần
 SERVER_PID=$!
-
-# Đợi server khởi động
 sleep 60
 
 echo "== STARTING PREFECT WORKER =="
-# Đặt biến môi trường trỏ về server nội bộ
-export PREFECT_API_URL=https://prefect-production-c7b6.up.railway.app/api
-
-# Bắt đầu worker
 prefect worker start --pool local-process-pool --type process
 
-# Nếu worker chết, kill server để container thoát
 kill $SERVER_PID
