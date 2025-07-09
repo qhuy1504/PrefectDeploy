@@ -4,7 +4,8 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from prefect import flow, task, get_run_logger
 from prefect.task_runners import ThreadPoolTaskRunner
-from typing import List, Dict, TypedDict
+from typing import List, Dict
+from typing_extensions import TypedDict
 from prefect.variables import Variable
 from datetime import datetime
 from prefect.states import State
