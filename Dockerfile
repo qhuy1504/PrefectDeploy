@@ -9,15 +9,17 @@ RUN apt-get update && apt-get install -y curl && \
 # Tạo thư mục làm việc
 WORKDIR /app
 
-# Copy các file cấu hình (start script, v.v.)
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy toàn bộ mã nguồn
+COPY . .
 
-COPY start.sh ./start.sh
+# Cài requirements (nếu có)
+RUN pip install --no-cache-dir -r requirements.txt || true
+
+# Cấp quyền thực thi script
 RUN chmod +x ./start.sh
 
-# Prefect Orion UI chạy mặc định cổng 4200
+# Mở cổng UI Prefect
 EXPOSE 4200
 
-# Lệnh khởi chạy
+# Khởi động container
 CMD ["./start.sh"]
