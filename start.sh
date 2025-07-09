@@ -24,16 +24,18 @@ prefect server start --host 0.0.0.0 --port 4200 &
 SERVER_PID=$!
 sleep 40
 
-
 echo "== CREATE WORK POOL (if not exists) =="
 prefect work-pool create -t process local-process-pool || true
 
 echo "== STARTING PREFECT WORKER =="
-prefect worker start --pool local-process-pool --type process
+prefect worker start --pool local-process-pool --type process &
 
+WORKER_PID=$!
 sleep 10
 
 echo "== SERVING FLOW =="
 python my_flows.py
 
+# Wait cho các tiến trình chạy nền
 wait $SERVER_PID
+wait $WORKER_PID
