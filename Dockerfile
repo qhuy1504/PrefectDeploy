@@ -1,25 +1,16 @@
-# Image chính thức của Prefect
 FROM python:3.11-slim
 
-# Cài đặt hệ thống & Prefect
-RUN apt-get update && apt-get install -y curl && \
-    pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir prefect
-
-# Tạo thư mục làm việc
 WORKDIR /app
 
-# Copy toàn bộ mã nguồn
+# Copy toàn bộ mã nguồn (bao gồm .env, my_flows.py)
 COPY . .
 
-# Cài requirements (nếu có)
+# Cài thư viện
 RUN pip install --no-cache-dir -r requirements.txt || true
 
-# Cấp quyền thực thi script
+# Cho phép chạy script
 RUN chmod +x ./start.sh
 
-# Mở cổng UI Prefect
 EXPOSE 4200
 
-# Khởi động container
 CMD ["./start.sh"]
