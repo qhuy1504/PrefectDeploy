@@ -196,5 +196,6 @@ if __name__ == "__main__":
 
     multi_task_job_flow.serve(
         name="entrypoint_dynamic_job",   
-        tags=["dynamic-job"]             
+        tags=["dynamic-job"],
+        work_pool_name="local-process-pool"
     )
