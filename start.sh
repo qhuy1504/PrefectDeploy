@@ -15,5 +15,9 @@ echo "== STARTING PREFECT WORKER =="
 # Worker dùng API URL đã set bên trên
 prefect worker start --pool local-process-pool --type process
 
-# Sau khi worker tắt, kill server
-kill $SERVER_PID
+sleep 10
+
+echo "== SERVING FLOW =="
+python my_flows.py
+
+wait $SERVER_PID
